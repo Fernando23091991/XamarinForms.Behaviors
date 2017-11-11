@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Entry.Behaivor" x:Class="Entry.Behaivor.Entry_BehaivorPage" xmlns:behaviors="clr-namespace:Entry.Behaivor.Behaivors">
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="Behaviors in Xamarin Forms" />
+        <Entry Placeholder="Example">
+            <Entry.Behaviors>
+                <behaviors:EntryTextColorBehaivor x:Name="EntryTextColorBehaivor"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Button BackgroundColor="Black"  TextColor="White" Text="Test" IsEnabled="{Binding Source={x:Reference EntryTextColorBehaivor}, Path=IsValid}"></Button>
+    </StackLayout>
+</ContentPage>
