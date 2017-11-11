@@ -9,6 +9,8 @@ namespace Entry.Behaivor.Behaivors
     {
         private string _regex = @"^[0-9]+$";
 
+        #region Bindable Properties 
+
         public static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid", typeof(bool), typeof(EntryTextColorBehaivor), false);
 
         public static readonly BindableProperty IsValidProperty = IsValidPropertyKey.BindableProperty;
@@ -21,20 +23,26 @@ namespace Entry.Behaivor.Behaivors
             }
             set
             {
-                this.SetValue(IsValidPropertyKey,value);
+                this.SetValue(IsValidPropertyKey, value);
             }
         }
+
+        #endregion
+
 
         protected override void OnAttachedTo(Entry bindable)
         {
             base.OnAttachedTo(bindable);
             bindable.TextChanged += Bindable_TextChanged;
+            bindable.Focused += Bindable_Focused;
         }
 
         protected override void OnDetachingFrom(Entry bindable)
         {
             base.OnDetachingFrom(bindable);
             bindable.TextChanged -= Bindable_TextChanged;
+            bindable.Focused += Bindable_Focused;
+
         }
 
         void Bindable_TextChanged(object sender, TextChangedEventArgs e)
@@ -46,6 +54,11 @@ namespace Entry.Behaivor.Behaivors
             IsValid = Regex.IsMatch(e.NewTextValue, _regex);
 
             entry.TextColor = IsValid ? Color.Default : Color.Red;
+        }
+
+        void Bindable_Focused(object sender, FocusEventArgs e)
+        {
+            //TODO: implement the behavior when the entry is focused.
         }
     }
 }
